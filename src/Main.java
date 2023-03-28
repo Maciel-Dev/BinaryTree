@@ -1,15 +1,12 @@
+import java.io.IOException;
 import java.util.Random;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Arvore<Integer> arvore = new Arvore<Integer>();
         Random random = new Random();
 
-        for(int i = 0; i <= 15; i++){
-            arvore.add(random.nextInt(20));
-        }
+        FReader.reader("dummy");
 
-
-        arvore.StraightWalk();
     }
 }
