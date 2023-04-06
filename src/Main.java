@@ -3,30 +3,36 @@ import geradorarquivos.GeradorArquivos;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
 
+        //Gerador e leitor de Arquivo
         GeradorArquivos g = new GeradorArquivos();
         FReader reader = new FReader();
-
-        int TAM = 100000000;
-        long tempoInicial = System. currentTimeMillis();
+        int TAM = 50;
         g.geraArquivo(TAM, GeradorArquivos.TipoArquivo.ORDENADO);
-        long tempoFinal = System. currentTimeMillis();
-
-        System.out.println("Tempo Total de geração do arquivo em ms: " + (tempoFinal - tempoInicial));
-
         reader.reader("entradaOrdenada50");
 
+        // Retorno da Lista de Alunos Preenchid
         List<Aluno> listAluno = reader.getClasse().getListAluno();
+        Arvore<Aluno> arvore = new Arvore<>();
 
-        Arvore<Aluno> arvore = new Arvore<Aluno>();
+        Scanner sc = new Scanner(System.in);
 
-//        for(Aluno a : listAluno){
-//            arvore.add(a);
-//        }
-//
-//        arvore.StraightWalk();
+        //Inicialização do Menu
+        Menu.textoInicial();
+        Menu.acoes();
+        int userAnsw = sc.nextInt();
+
+        if(userAnsw == 1){
+            Menu.adicionarElemento();
+            System.out.println("Digite a matrícula do aluno: ");
+            int matricula = sc.nextInt();
+            System.out.println("Digite o nome do aluno: ");
+            String nomeAluno = sc.nextLine();
+            System.out.println("Digite a nota do aluno: ");
+        }
     }
 }
