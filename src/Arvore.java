@@ -51,4 +51,20 @@ public class Arvore<T extends Comparable> {
             PrintTree(root.getRight());
         }
     }
+
+    private boolean pesquisarElemento(Elemento<T> elemento, String matricula){
+        if (elemento.getValue() == null) {
+            return false;
+        }
+        else if(elemento.getValue() == matricula){
+            return true;
+        }
+        else if(elemento.getValue().compareTo(matricula) == -1){
+            return pesquisarElemento(elemento.getLeft(), matricula);
+        }
+        else{
+            return pesquisarElemento(elemento.getRight(), matricula);
+        }
+    }
 }
+

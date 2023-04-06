@@ -1,16 +1,30 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Classe {
 
-    public int quantity;
-    public ArrayList<Aluno> listAluno;
+    private int quantity;
+    private ArrayList<Aluno> listAluno;
+    private ArrayList<String> matriculas;
 
     public Classe(){
-        this.listAluno = new ArrayList<Aluno>();
+        listAluno = new ArrayList<Aluno>();
+        matriculas = new ArrayList<String>();
         this.quantity = 0;
+    }
 
+    public void setListAluno(ArrayList<Aluno> listAluno) {
+        this.listAluno = listAluno;
+    }
+
+    public ArrayList<String> getMatriculas() {
+        return matriculas;
+    }
+
+    public void setMatriculas(String matricula) {
+        matriculas.add(matricula);
     }
 
     public int getQuantity() {
@@ -26,7 +40,7 @@ public class Classe {
     }
 
     public void PrintLista(){
-        for(Aluno aluno : this.listAluno){
+        for(Aluno aluno : listAluno){
             System.out.println(aluno.getCode() + " - " + aluno.getName() + " - " + aluno.getGrade());
         }
     }

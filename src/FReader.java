@@ -1,26 +1,23 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public abstract class FReader {
+public class FReader {
 
     static String line;
+    Classe classe = new Classe();
 
-    private static List<Aluno> list = new ArrayList<Aluno>();
-
-    public static void reader(String fileName) throws IOException {
-        File file = new File("FileDirectory/" + fileName + ".txt");
+    public void reader(String fileName) throws IOException {
+        File file = new File( fileName + ".txt");
         FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);
 
         boolean first = true;
 
-        Classe classe = new Classe();
-
         while((line = br.readLine()) != null){
             if(first){
                 first = false;
+                classe.setQuantity(Integer.parseInt(line));
             }
 
             else {
@@ -29,11 +26,20 @@ public abstract class FReader {
                 aluno.setCode(parts[0]);
                 aluno.setName(parts[1]);
                 aluno.setGrade(Float.parseFloat(parts[2]));
-
                 classe.setListAluno(aluno);
+                classe.setMatriculas(parts[0]);
             }
         }
-        classe.PrintLista();
+//        classe.PrintLista();
+        classe.getListAluno();
+    }
+
+    public Classe getClasse(){
+        return classe;
+    }
+
+    public ArrayList<String> getMatriculas(){
+        return this.classe.getMatriculas();
     }
 }
 
