@@ -1,5 +1,4 @@
 public class Elemento<T> {
-
     private T value;
     private Elemento<T> left;
     private Elemento<T> right;

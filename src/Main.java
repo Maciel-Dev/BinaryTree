@@ -10,14 +10,25 @@ public class Main {
 
         //Gerador e leitor de Arquivo
         GeradorArquivos g = new GeradorArquivos();
-        FReader reader = new FReader();
+
         int TAM = 50;
         g.geraArquivo(TAM, GeradorArquivos.TipoArquivo.ORDENADO);
-        reader.reader("entradaOrdenada50");
 
-        // Retorno da Lista de Alunos Preenchid
+        // Inicialização de Comparadores
+        CompareByCode compareByCode = new CompareByCode();
+        CompareByName compareByName = new CompareByName();
+
+        //Inicialização Arvore
+
+        // Todo - Read all file and create 2 binary tree from reader - Objectives - Don't use List
+        FReader reader = new FReader();
+        Arvore<Aluno> SByCode = reader.reader("entradaOrdenada50", compareByCode);
+        Arvore<Aluno> SByName = reader.reader("entradaOrdenada50", compareByName);
+
+        SByCode.pesquisarElemento(SByCode.getRoot(), 200000);
+
+        // Retorno da Lista de Alunos Preenchida
         List<Aluno> listAluno = reader.getClasse().getListAluno();
-        Arvore<Aluno> arvore = new Arvore<>();
 
         Scanner sc = new Scanner(System.in);
 
@@ -33,6 +44,18 @@ public class Main {
             System.out.println("Digite o nome do aluno: ");
             String nomeAluno = sc.nextLine();
             System.out.println("Digite a nota do aluno: ");
+            Double grade = sc.nextDouble();
+
+            Aluno aluno = new Aluno(matricula, nomeAluno, grade);
+            SByCode.add(aluno);
+            SByName.add(aluno);
+        }
+        else if(userAnsw == 2){
+            Menu.selecaoMatricula();
+            int userAnswM = sc.nextInt();
+            if(userAnsw == 1){
+                Menu.BuscarMat();
+            }
         }
     }
 }

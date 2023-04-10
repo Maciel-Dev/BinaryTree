@@ -3,24 +3,24 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class Aluno implements Comparable {
+public class Aluno implements Comparable<Aluno> {
 
-    private String code;
+    private int code;
     private String name;
-    private float grade;
+    private Double grade;
     private List<Aluno> list;
 
-    public Aluno(){
-        this.code = null;
-        this.name = null;
-        this.grade = 0;
+    public Aluno(int code, String name, Double grade){
+        this.code = code;
+        this.name = name;
+        this.grade = grade;
     }
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 
@@ -32,11 +32,11 @@ public class Aluno implements Comparable {
         this.name = name;
     }
 
-    public float getGrade() {
+    public Double getGrade() {
         return grade;
     }
 
-    public void setGrade(float grade) {
+    public void setGrade(Double grade) {
         this.grade = grade;
     }
 
@@ -49,7 +49,7 @@ public class Aluno implements Comparable {
     }
 
     @Override
-    public int compareTo(Object o) {
+    public int compareTo(Aluno o) {
         return 0;
     }
 }

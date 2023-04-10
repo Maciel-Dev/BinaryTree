@@ -1,8 +1,14 @@
+import java.util.Comparator;
+
 public class Arvore<T extends Comparable> {
     private Elemento<T> root;
+    private String tipo;
+    private Comparator<T> comparator;
 
-    public Arvore(){
+
+    public Arvore(Comparator<T> comparator){
         this.root = null;
+        this.comparator = comparator;
     }
 
     // Element append on BinaryTree
@@ -14,7 +20,7 @@ public class Arvore<T extends Comparable> {
         else {
             Elemento<T> atual = this.root;
             while(true){
-                if(newElement.getValue().compareTo(atual.getValue()) == -1){
+                if(comparator.compare(newElement.getValue(), atual.getValue()) < 0){
                     if(atual.getLeft() != null){
                         atual = atual.getLeft();
                     }
@@ -52,19 +58,47 @@ public class Arvore<T extends Comparable> {
         }
     }
 
-    private boolean pesquisarElemento(Elemento<T> elemento, String matricula){
+    public boolean pesquisarElemento(Elemento<T> elemento, int matricula){
+
+        if()
+
         if (elemento.getValue() == null) {
             return false;
         }
-        else if(elemento.getValue() == matricula){
+        else if(elemento.getValue().equals(matricula)){
             return true;
         }
-        else if(elemento.getValue().compareTo(matricula) == -1){
+//        else if(comparator.(elemento.getValue(), matricula) < 0)
+        else if(comparator. < 0){
             return pesquisarElemento(elemento.getLeft(), matricula);
         }
         else{
             return pesquisarElemento(elemento.getRight(), matricula);
         }
+    }
+
+    public Elemento<T> getRoot() {
+        return root;
+    }
+
+    public void setRoot(Elemento<T> root) {
+        this.root = root;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public Comparator<T> getComparator() {
+        return comparator;
+    }
+
+    public void setComparator(Comparator<T> comparator) {
+        this.comparator = comparator;
     }
 }
 

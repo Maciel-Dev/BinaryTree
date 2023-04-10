@@ -1,13 +1,18 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-public class FReader {
-
+public class FReader<T extends Comparable> {
     static String line;
     Classe classe = new Classe();
+    Comparator<T> comparator;
 
-    public void reader(String fileName) throws IOException {
+    public Arvore<T> reader(String fileName, Comparator<T> comparator) throws IOException {
+
+        Arvore<T> arvoreAluno = new Arvore<T>(comparator);
+        this.comparator = comparator;
+
         File file = new File( fileName + ".txt");
         FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);
@@ -22,16 +27,12 @@ public class FReader {
 
             else {
                 String[] parts = line.split(";");
-                Aluno aluno = new Aluno();
-                aluno.setCode(parts[0]);
-                aluno.setName(parts[1]);
-                aluno.setGrade(Float.parseFloat(parts[2]));
-                classe.setListAluno(aluno);
-                classe.setMatriculas(parts[0]);
+                Aluno aluno = new Aluno(Integer.parseInt(parts[0]), parts[1], Double.parseDouble(parts[2]));
+                arvoreAluno.add((T) aluno);
             }
         }
-//        classe.PrintLista();
-        classe.getListAluno();
+
+        return arvoreAluno;
     }
 
     public Classe getClasse(){
