@@ -1,3 +1,5 @@
+// Autor: João Vitor Maciel Vianna
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -14,6 +16,29 @@ public class Aluno implements Comparable<Aluno> {
         this.code = code;
         this.name = name;
         this.grade = grade;
+    }
+
+    public Aluno(int code){
+        this.code = code;
+    }
+
+    public Aluno(String name){
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object a){
+        if(a instanceof Aluno){
+            return this.code==((Aluno)a).code;
+        }
+        else{
+            return false;
+        }
+    }
+
+    @Override
+    public int compareTo(Aluno a){
+        return Integer.compare(this.code, a.code);
     }
 
     public int getCode() {
@@ -48,8 +73,4 @@ public class Aluno implements Comparable<Aluno> {
         this.list.add(aluno);
     }
 
-    @Override
-    public int compareTo(Aluno o) {
-        return 0;
-    }
 }

@@ -1,3 +1,5 @@
+// Autor: João Vitor Maciel Vianna
+
 import java.util.Comparator;
 
 public class CompareByName implements Comparator<Aluno> {

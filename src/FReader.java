@@ -1,3 +1,5 @@
+// Autor: João Vitor Maciel Vianna
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -5,12 +7,11 @@ import java.util.List;
 
 public class FReader<T extends Comparable> {
     static String line;
-    Classe classe = new Classe();
     Comparator<T> comparator;
 
     public Arvore<T> reader(String fileName, Comparator<T> comparator) throws IOException {
 
-        Arvore<T> arvoreAluno = new Arvore<T>(comparator);
+        Arvore<T> arvoreAluno = new Arvore<>(comparator);
         this.comparator = comparator;
 
         File file = new File( fileName + ".txt");
@@ -22,7 +23,7 @@ public class FReader<T extends Comparable> {
         while((line = br.readLine()) != null){
             if(first){
                 first = false;
-                classe.setQuantity(Integer.parseInt(line));
+                arvoreAluno.setQuant(Integer.parseInt(line));
             }
 
             else {
@@ -35,12 +36,6 @@ public class FReader<T extends Comparable> {
         return arvoreAluno;
     }
 
-    public Classe getClasse(){
-        return classe;
-    }
 
-    public ArrayList<String> getMatriculas(){
-        return this.classe.getMatriculas();
-    }
 }
 

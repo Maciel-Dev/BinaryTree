@@ -1,60 +1,93 @@
-import geradorarquivos.GeradorArquivos;
+// Autor: João Vitor Maciel Vianna
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-
-        //Gerador e leitor de Arquivo
-        GeradorArquivos g = new GeradorArquivos();
-
-        int TAM = 50;
-        g.geraArquivo(TAM, GeradorArquivos.TipoArquivo.ORDENADO);
 
         // Inicialização de Comparadores
         CompareByCode compareByCode = new CompareByCode();
         CompareByName compareByName = new CompareByName();
 
         //Inicialização Arvore
-
-        // Todo - Read all file and create 2 binary tree from reader - Objectives - Don't use List
         FReader reader = new FReader();
-        Arvore<Aluno> SByCode = reader.reader("entradaOrdenada50", compareByCode);
-        Arvore<Aluno> SByName = reader.reader("entradaOrdenada50", compareByName);
 
-        SByCode.pesquisarElemento(SByCode.getRoot(), 200000);
+        Menu.InicializaArvore();
 
-        // Retorno da Lista de Alunos Preenchida
-        List<Aluno> listAluno = reader.getClasse().getListAluno();
+        Arvore<Aluno> SByCode = reader.reader("entradaBalanceada50", compareByCode);
+        Arvore<Aluno> SByName = reader.reader("entradaBalanceada50", compareByName);
 
+        //Inicializa Ações
         Scanner sc = new Scanner(System.in);
 
         //Inicialização do Menu
         Menu.textoInicial();
         Menu.acoes();
-        int userAnsw = sc.nextInt();
+        int userAnswMenu = sc.nextInt();
 
-        if(userAnsw == 1){
-            Menu.adicionarElemento();
-            System.out.println("Digite a matrícula do aluno: ");
-            int matricula = sc.nextInt();
-            System.out.println("Digite o nome do aluno: ");
-            String nomeAluno = sc.nextLine();
-            System.out.println("Digite a nota do aluno: ");
-            Double grade = sc.nextDouble();
+        while(userAnswMenu != 4){
 
-            Aluno aluno = new Aluno(matricula, nomeAluno, grade);
-            SByCode.add(aluno);
-            SByName.add(aluno);
-        }
-        else if(userAnsw == 2){
-            Menu.selecaoMatricula();
-            int userAnswM = sc.nextInt();
-            if(userAnsw == 1){
-                Menu.BuscarMat();
+            if(userAnswMenu == 1){
+                Menu.contAcoes(userAnswMenu);
+                System.out.println("Digite a matrícula do aluno: ");
+                int matricula = sc.nextInt();
+                System.out.println("Digite o nome do aluno: ");
+                sc.nextLine();
+                String nomeAluno = sc.nextLine();
+                System.out.println("Digite a nota do aluno: ");
+                Double grade = sc.nextDouble();
+
+                Aluno aluno = new Aluno(matricula, nomeAluno, grade);
+
+                SByCode.add(aluno);
+                SByName.add(aluno);
+            }
+            else if(userAnswMenu == 2){
+
+                Menu.selecaoMatricula();
+
+                int userAnsw = sc.nextInt();
+
+                if(userAnsw == 1){
+                    Menu.buscarMatricula();
+                    int matricula = sc.nextInt();
+                    Aluno matAluno = new Aluno(matricula);
+                    SByCode.search(matAluno);
+                }
+                else if(userAnsw == 2){
+                    System.out.println("Não está pronto");
+                }
+                else if(userAnsw == 3){
+                    SByCode.initHigh();
+                    SByCode.initLow();
+                }
+            }
+
+            else if(userAnswMenu == 3){
+
+                Menu.selecaoNome();
+
+                int userAnsw = sc.nextInt();
+                sc.nextLine();
+
+                if(userAnsw == 1){
+                    Menu.buscarNome();
+                    String nome = sc.nextLine();
+                    Aluno matAluno = new Aluno(nome);
+                    SByName.search(matAluno);
+                }
+                else if(userAnsw == 2){
+                    System.out.println("Não está pronto");
+                }
+                else if(userAnsw == 3){
+                    SByName.initHigh();
+                    SByName.initLow();
+                }
+            }
+
+            else{
+                System.exit(0);
             }
         }
     }

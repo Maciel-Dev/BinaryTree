@@ -1,3 +1,5 @@
+// Autor: João Vitor Maciel Vianna
+
 public class Elemento<T> {
     private T value;
     private Elemento<T> left;
