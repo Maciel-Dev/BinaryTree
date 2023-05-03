@@ -17,6 +17,30 @@ public class Elemento<T> {
         this.right = null;
     }
 
+    public int obterAltura(){
+        return obterAltura(this);
+    }
+
+    private int obterAltura(Elemento<T> r){
+        if(r == null){
+            return -1;
+        }
+        else{
+            int hd = obterAltura(r.getRight());
+            int he = obterAltura(r.getLeft());
+            if(hd > he){
+                return hd+1;
+            }
+            else{
+                return he+1;
+            }
+        }
+    }
+
+    public int fatorBalanceamento(){
+        return obterAltura(this.right) - obterAltura(this.left);
+    }
+
     public T getValue() {
         return value;
     }
