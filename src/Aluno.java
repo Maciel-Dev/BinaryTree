@@ -7,21 +7,25 @@ import java.util.ListIterator;
 
 public class Aluno implements Comparable<Aluno> {
 
+    //Variáveis de Aluno
     private int code;
     private String name;
     private Double grade;
     private List<Aluno> list;
 
+    //Construtor de Aluno
     public Aluno(int code, String name, Double grade){
         this.code = code;
         this.name = name;
         this.grade = grade;
     }
 
+    //Construtor de aluno para receber apenas matrícula
     public Aluno(int code){
         this.code = code;
     }
 
+    //Construtor de aluno para receber apenas nome
     public Aluno(String name){
         this.name = name;
     }
@@ -34,6 +38,14 @@ public class Aluno implements Comparable<Aluno> {
         else{
             return false;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Aluno: " +
+                "Matrícula = " + code +
+                ", Nome = '" + name + '\'' +
+                ", Nota = " + grade;
     }
 
     @Override

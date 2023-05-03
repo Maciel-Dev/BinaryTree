@@ -1,7 +1,7 @@
 public abstract interface Menu {
 
     public static void textoInicial() {
-        System.out.println("Selecione uma opção para realizar uma ação: ");
+        System.out.println("=*=*=*= SELECIONE UMA OPÇÃO PARA REALIZAR UMA AÇÃO: =*=*=*=");
     }
 
     public static void acoes(){
@@ -17,6 +17,7 @@ public abstract interface Menu {
         System.out.println("1 - Buscar");
         System.out.println("2 - Excluir");
         System.out.println("3 - Estatísticas");
+        System.out.println("4 - Percorrer Árvore");
     }
 
     public static void selecaoNome() {
@@ -24,6 +25,11 @@ public abstract interface Menu {
         System.out.println("1 - Buscar");
         System.out.println("2 - Excluir");
         System.out.println("3 - Estatísticas");
+        System.out.println("4 - Percorrer Árvore");
+    }
+
+    public static void displaySearchCode(){
+        System.out.println("Digite 1 para busca em nível\nDigite 2 para busca em ordem\n");
     }
 
     public static void buscarMatricula(){
@@ -34,7 +40,9 @@ public abstract interface Menu {
         System.out.println("Digite o Nome a ser buscado: ");
     }
 
-
+    public static void exibirAltura() {
+        System.out.println("A altura da árvore é igual a ");
+    }
 
     public static void BuscarMat() {
         System.out.println("Digite a matrícula a ser buscada: ");
