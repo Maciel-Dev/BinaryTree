@@ -82,8 +82,8 @@ public class Main {
 
                     System.out.println("==*Removendo Aluno*==");
                     if (aluno != null) {
-                        Aluno alunoRemovido = SByCode.initRemove(aluno);
-                        SByName.initRemove(new Aluno(alunoRemovido.getName()));
+                        Aluno alunoRemovido = SByCode.removeReal(aluno);
+                        SByName.removeReal(new Aluno(alunoRemovido.getName()));
                         System.out.println("---> Aluno Removido ✔");
                     } else {
                         System.out.println("---> Não foi possível realizar a remoção! ✘");
@@ -144,8 +144,8 @@ public class Main {
                     //Verificação De Aluno para poupar processamento
                     System.out.println("==*Removendo Aluno*==");
                     if (aluno != null) {
-                        Aluno alunoRemovido = SByName.initRemove(aluno);
-                        SByCode.initRemove(new Aluno(alunoRemovido.getCode()));
+                        Aluno alunoRemovido = SByName.removeReal(aluno);
+                        SByCode.removeReal(new Aluno(alunoRemovido.getCode()));
                         System.out.println("---> Aluno Removido ✔");
                     } else {
                         System.out.println("---> Não foi possível realizar a remoção! ✘");
