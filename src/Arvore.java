@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 
 public class Arvore<T extends Comparable> {
-    private Elemento<T> root;
+    protected Elemento<T> root;
     private String tipo;
     private Comparator<T> comparator;
     private int quant;
@@ -51,19 +51,35 @@ public class Arvore<T extends Comparable> {
         }
     }
 
+    public void adicionarElemento(T novoValor){
+        Elemento<T> novoNo = new Elemento<T>(novoValor);
+        if(this.root == null){
+            this.root = novoNo;
+        }
+        else{
+            this.root = addRecursivo(this.root, novoNo);
+        }
+    }
+
+
     //Adicionar Recursivo
     protected Elemento<T> addRecursivo(Elemento<T> raiz, Elemento<T> valor){
-        if(raiz == null){
-            return new Elemento<T>(valor.getValue());
+        if(comparator.compare(valor.getValue(), raiz.getValue()) < 0){
+            if(raiz.getLeft() == null){
+                raiz.setLeft(valor);
+            }
+            else {
+                raiz.setLeft(addRecursivo(raiz.getLeft(), valor));
+            }
         }
-
-        if(comparator.compare(raiz.getValue(), valor.getValue()) < 0){
-            raiz.setLeft(addRecursivo(raiz.getLeft(), valor));
+        else{
+            if(raiz.getRight() == null){
+                raiz.setRight(valor);
+            }
+            else {
+                raiz.setRight(addRecursivo(raiz.getRight(), valor));
+            }
         }
-        else if(comparator.compare(raiz.getValue(), valor.getValue()) > 0){
-            raiz.setRight(addRecursivo(raiz.getRight(), valor));
-        }
-
         return raiz;
     }
 

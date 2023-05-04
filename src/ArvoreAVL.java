@@ -6,6 +6,13 @@ public class ArvoreAVL <T extends Comparable> extends Arvore<T>{
         super(comparator);
     }
 
+    // Rotação a Esquerda
+    // Caso necessário a rotação,
+    // Obtém o elemento da inserção de recursão
+    // Cria um novo Elemento e aponta para o filho a direita do elemento atual
+    // Obtem o filho a esquerda do filho a direita
+    // O filho a direita do elemento (Parametro) aponta para o filho a esquerda de f
+    // o filho a esquerda de f aponta para r, ocasionando a rotação
     private Elemento<T> rotacaoEsquerda(Elemento<T> r){
         Elemento<T> f = r.getRight();
         r.setRight(f.getLeft());
@@ -13,6 +20,13 @@ public class ArvoreAVL <T extends Comparable> extends Arvore<T>{
         return f;
     }
 
+    // Rotação a Diretia
+    // Caso necessário a rotação,
+    // Obtém o elemento da inserção de recursão
+    // Cria um novo Elemento e aponta para o filho a esquerda do elemento atual
+    // Obtem o filho a direita do filho a esquerda
+    // O filho a esquerda do elemento (Parametro) aponta para o filho a direita de f
+    // o filho a direita de f aponta para r, ocasionando a rotação
     private Elemento<T> rotacaoDireita(Elemento<T> r){
         Elemento<T> f = r.getLeft();
         r.setLeft(f.getRight());
@@ -51,5 +65,9 @@ public class ArvoreAVL <T extends Comparable> extends Arvore<T>{
             }
         }
         return raiz;
+    }
+
+    public void addRecursivo(T value) {
+       root = addRecursivo(root, new Elemento<T>(value));
     }
 }
