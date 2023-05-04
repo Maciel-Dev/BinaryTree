@@ -221,108 +221,104 @@ public class Arvore<T extends Comparable> {
 
     //---------------------------------------------------------------
     //Remover
-    protected T remove(Elemento<T> data) {
-        //buscar elemento
-        // Iterativo
-        Elemento<T> atual = this.root;
-        Elemento<T> actFather = null;
-        // Realiza a busca do elemento na árvore
-        // Salva o último elemento buscado como pai do próximo elemento a ser buscado
-        while (atual != null) {
-            if (comparator.compare(atual.getValue(), data.getValue()) == 0) {
-                break;
-            } else if (comparator.compare(atual.getValue(), data.getValue()) > 0) {
-                actFather = atual;
-                atual = atual.getLeft();
-            } else {
-                actFather = atual;
-                atual = atual.getRight();
-            }
-        }
-        if (atual != null) {
-            //Caso o nó da direita do elemento encontrado seja diferente de null
-            if (atual.getRight() != null) {
-                //Armazena nó a ocupar o lugar do nó substituido
-                Elemento<T> substitute = atual.getRight();
-                //Armazena nó pai
-                Elemento<T> subFather = atual;
-
-                // Busca pelo nó a esquerda e atualiza
-                while (substitute.getLeft() != null) {
-                    subFather = substitute;
-                    substitute = substitute.getLeft();
-                }
-                //
-                substitute.setLeft(atual.getLeft());
-
-                // Busca pelo pai atual
-                if (actFather != null) {
-                    if (comparator.compare(atual.getValue(), actFather.getValue()) < 0) {
-                        actFather.setLeft(substitute);
-                    } else {
-                        actFather.setRight(substitute);
-                    }
-                }
-                // Caso não haja pai atual, é raíz
-                else {
-                    this.root = substitute;
-                    subFather.setLeft(null);
-                    this.root.setRight(subFather);
-                    this.root.setLeft(atual.getLeft());
-                }
-                // Realiza comparação do valor
-                // Caso o valor seja menor do que o pai temporário, o pai temporário
-                // aponta para um nó vazio
-                if (comparator.compare(substitute.getValue(), subFather.getValue()) < 0) {
-                    subFather.setLeft(null);
-                } else {
-                    subFather.setRight(null);
-                }
-            } else if (atual.getLeft() != null) { // possui filho a esquerda
-                Elemento<T> substitute = atual.getLeft();
-                Elemento<T> subFather = atual;
-                while (substitute.getRight() != null) {
-                    subFather = substitute;
-                    substitute = substitute.getRight();
-                }
-
-                if (actFather != null) {
-                    if (comparator.compare(atual.getValue(), actFather.getValue()) < 0) {
-                        actFather.setLeft(substitute);
-                    } else {
-                        actFather.setRight(substitute);
-                    }
-                } else {
-                    this.root = substitute;
-                }
-
-                if (comparator.compare(substitute.getValue(), subFather.getValue()) < 0) {
-                    subFather.setLeft(null);
-                } else {
-                    subFather.setRight(null);
-                }
-            } else {
-                // Caso não possua filho
-                if (actFather != null) {
-                    if (comparator.compare(atual.getValue(), actFather.getValue()) < 0) {
-                        actFather.setLeft(null);
-                    } else {
-                        actFather.setRight(null);
-                    }
-                } else {
-                    this.root = null;
-                }
-            }
-            return atual.getValue(); // Valor Deletado
-        } else {
+    protected T removeIterative(Elemento<T> root, Elemento<T> key) {
+        if (root == null) {
             return null;
         }
+
+        if(comparator.compare(root.getValue(), key.getValue()) == 0){
+            if(root.getLeft() == null){
+                return root.getRight().getValue();
+            }
+            else if(root.getRight() == null){
+                return root.getLeft().getValue();
+            }
+            else{
+                Elemento<T> sucessor = findSuccessor(root.getRight());
+                root.setValue(sucessor.getValue());
+                root.setRight(deleteNode(root.getRight(), sucessor));
+                return root.getValue();
+            }
+        }
+
+        Elemento<T> curr = root;
+        Elemento<T> parent = null;
+
+        while (curr != null && comparator.compare(curr.getValue(), key.getValue()) != 0) {
+            parent = curr;
+            if (comparator.compare(key.getValue(), curr.getValue()) < 0) {
+                curr = curr.getLeft();
+            } else {
+                curr = curr.getRight();
+            }
+        }
+
+        if (curr == null) {
+            return root.getValue();
+        }
+
+        if (curr.getLeft() == null) {
+            if (parent == null) {
+                return curr.getRight().getValue();
+            }
+            if (curr == parent.getLeft()) {
+                parent.setLeft(curr.getRight());
+            } else {
+                parent.setRight(curr.getRight());
+            }
+        } else if (curr.getRight() == null) {
+            if (parent == null) {
+                return curr.getLeft().getValue();
+            }
+            if (curr == parent.getLeft()) {
+                parent.setLeft(curr.getLeft());
+            } else {
+                parent.setRight(curr.getLeft());
+            }
+        } else {
+            Elemento<T> successor = findSuccessor(curr.getRight());
+            curr.setValue(successor.getValue());
+            curr.setRight(deleteNode(curr.getRight(), successor));
+        }
+
+        return root.getValue();
     }
 
-    public T initRemove(T elemento) {
-        Elemento<T> newElement = new Elemento<>(elemento);
-        return remove(newElement);
+    private Elemento<T> findSuccessor(Elemento<T> node) {
+        while (node.getLeft() != null) {
+            node = node.getLeft();
+        }
+        return node;
     }
+
+    private Elemento<T> deleteNode(Elemento<T> node, Elemento<T> key) {
+        if (node == null) {
+            return null;
+        }
+
+        if (comparator.compare(key.getValue(), node.getValue()) < 0) {
+            node.setLeft(deleteNode(node.getLeft(), key));
+        } else if (comparator.compare(key.getValue(), node.getValue()) > 0) {
+            node.setRight(deleteNode(node.getRight(), key));
+        } else {
+            if (node.getLeft() == null) {
+                return node.getRight();
+            } else if (node.getRight() == null) {
+                return node.getLeft();
+            }
+
+            Elemento<T> successor = findSuccessor(node.getRight());
+            node.setValue(successor.getValue());
+            node.setRight(deleteNode(node.getRight(), successor));
+        }
+
+        return node;
+    }
+
+    public T removeReal(T val){
+        return removeIterative(this.root, new Elemento<>(val));
+    }
+
     //---------------------------------------------------------------
 
     //Quantidade de Elementos

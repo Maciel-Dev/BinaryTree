@@ -11,10 +11,6 @@ public class Main {
         CompareByCode compareByCode = new CompareByCode();
         CompareByName compareByName = new CompareByName();
 
-        GeradorArquivos geradorArquivos = new GeradorArquivos();
-
-        geradorArquivos.geraArquivo(10000, GeradorArquivos.TipoArquivo.ORDENADO);
-
         //Inicialização Arvore
         FReader reader = new FReader();
 
@@ -101,19 +97,19 @@ public class Main {
                     System.out.println("==*Removendo Aluno*==");
                     if (aluno != null) {
                         System.out.println("\n=== > Árvore Código < ===");
-                        Aluno alunoRemovido = SByCode.initRemove(aluno);
+                        Aluno alunoRemovido = SByCode.removeReal(aluno);
                         System.out.println("---> Aluno Removido ✔");
                         System.out.println("\n");
                         System.out.println("=== > Árvore Nome < ===");
-                        SByName.initRemove(new Aluno(alunoRemovido.getName()));
+                        SByName.removeReal(new Aluno(alunoRemovido.getName()));
                         System.out.println("---> Aluno Removido ✔");
                         System.out.println("\n");
                         System.out.println("=== > ÁrvoreAVL Código < ===");
-                        SByCodeAVL.initRemove(aluno);
+                        SByCodeAVL.removeReal(aluno);
                         System.out.println("---> Aluno Removido ✔");
                         System.out.println("\n");
                         System.out.println("=== > ÁrvoreAVL Nome < ===");
-                        SByNameAVL.initRemove(new Aluno(alunoRemovido.getName()));
+                        SByNameAVL.removeReal(new Aluno(alunoRemovido.getName()));
                         System.out.println("---> Aluno Removido ✔");
                     } else {
                         System.out.println("---> Não foi possível realizar a remoção! ✘");
@@ -200,25 +196,25 @@ public class Main {
                     if (aluno != null) {
                         System.out.println("\n=== > Árvore Nome < ===");
                         //Remoção Arvore Nome
-                        Aluno alunoRemovido = SByName.initRemove(aluno);
+                        Aluno alunoRemovido = SByName.removeReal(aluno);
 
                         System.out.println("---> Aluno Removido ✔");
                         System.out.println("\n");
                         System.out.println("=== > Árvore Código < ===");
                         //Remoção Arvore Código
-                        SByCode.initRemove(new Aluno(alunoRemovido.getCode()));
+                        SByCode.removeReal(new Aluno(alunoRemovido.getCode()));
 
                         System.out.println("---> Aluno Removido ✔");
                         System.out.println("\n");
                         System.out.println("=== > ÁrvoreAVL Nome < ===");
                         //Remoção ArvoreAVL Nome
-                        SByNameAVL.initRemove(aluno);
+                        SByNameAVL.removeReal(aluno);
 
                         System.out.println("---> Aluno Removido ✔");
                         System.out.println("\n");
                         System.out.println("=== > ÁrvoreAVL Código < ===");
                         //Remoção ArvoreAVL Code
-                        SByCodeAVL.initRemove(new Aluno(alunoRemovido.getCode()));
+                        SByCodeAVL.removeReal(new Aluno(alunoRemovido.getCode()));
                         System.out.println("---> Aluno Removido ✔");
                     } else {
                         System.out.println("---> Não foi possível realizar a remoção! ✘");
